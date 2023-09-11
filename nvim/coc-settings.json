@@ -1,6 +1,5 @@
 "languageserver": {
   "python": {
-    "venvPath": "~/venv",
     "command": "python",
     "args": ["-m", "jedi-language-server"],
     "filetypes": ["python"]
