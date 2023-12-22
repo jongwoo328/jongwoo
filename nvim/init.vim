@@ -17,12 +17,13 @@ set nu
 " clipboard 설정
 set clipboard+=unnamedplus
 
-lua vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help) 
-
 " set theme
 lua require('onedark').setup { style = 'warmer' }
 lua require('onedark').load()
 colorscheme onedark
+
+" markdown 언어서버
+lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
 require'lspconfig'.jsonls.setup{}
