@@ -6,9 +6,15 @@ Plug 'neovim/nvim-lspconfig'
 " one dark theme
 Plug 'navarasu/onedark.nvim'
 
+" nerdtree
+Plug 'preservim/nerdtree'
+
 " 자동완성
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+
+" discord presence
+Plug 'andweeb/presence.nvim'
 
 call plug#end()
 
@@ -22,7 +28,6 @@ lua require('onedark').setup { style = 'warmer' }
 lua require('onedark').load()
 colorscheme onedark
 
-" markdown 언어서버
 lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
