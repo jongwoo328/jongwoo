@@ -16,12 +16,13 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 " discord presence
 Plug 'andweeb/presence.nvim'
 
+" github copilot
+Plug 'github/copilot.vim'
+
 call plug#end()
 
 " line number 설정
 set nu
-" clipboard 설정
-set clipboard+=unnamedplus
 
 " set theme
 lua require('onedark').setup { style = 'warmer' }
