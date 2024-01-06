@@ -19,6 +19,9 @@ Plug 'andweeb/presence.nvim'
 " github copilot
 Plug 'github/copilot.vim'
 
+" kotlin syntax highlight
+Plug 'udalov/kotlin-vim'
+
 call plug#end()
 
 " line number 설정
