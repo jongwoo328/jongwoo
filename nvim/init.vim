@@ -22,6 +22,10 @@ Plug 'github/copilot.vim'
 " kotlin syntax highlight
 Plug 'udalov/kotlin-vim'
 
+" fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 " line number 설정
