@@ -36,10 +36,26 @@ Plug 'udalov/kotlin-vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" vim airline (화면 부가정보)
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" git 관련 기능
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
+
+" airline에 powerline 폰트 사용
+let g:airline_powerline_fonts = 1
 
 " line number 설정
 set nu
+
+" 공백 변환
+set list
+
+" width 80에 라인표시
+set colorcolumn=80
 
 " set theme
 lua require('onedark').setup { style = 'warmer' }
