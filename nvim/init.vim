@@ -48,14 +48,24 @@ Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
-" airline에 powerline 폰트 사용
-let g:airline_powerline_fonts = 1
+" nerdtree 설정
+map <C-t> :NERDTreeToggle<CR>
 
-" nerdcommenter 키 바인딩 ( // -> 주석토글 )
-let g:NERDCreateDefaultMappings = 0
-let g:NERDToggleCheckAllLines = 1
+" vim airline 설정
+let g:airline_powerline_fonts = 1		" powerline 폰트 사용
+let g:airline#extensions#tabline#enabled = 1	" 탭 라인 활성화
+
+" nerdcommenter 설정
+let g:NERDCreateDefaultMappings = 0		" 기본 매핑 비활성화
+let g:NERDToggleCheckAllLines = 1		" 주석 토글시 모든 라인 주석처리
 nnoremap // <Plug>NERDCommenterToggle
 vnoremap // <Plug>NERDCommenterToggle
+
+" custom keymap
+noremap <C-j> 4j
+noremap <C-k> 4k
+noremap <C-h> 4h
+noremap <C-l> 4l
 
 " line number 설정
 set nu
