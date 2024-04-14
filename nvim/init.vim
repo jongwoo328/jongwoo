@@ -43,10 +43,19 @@ Plug 'vim-airline/vim-airline-themes'
 " git 관련 기능
 Plug 'tpope/vim-fugitive'
 
+" 주석 기능
+Plug 'preservim/nerdcommenter'
+
 call plug#end()
 
 " airline에 powerline 폰트 사용
 let g:airline_powerline_fonts = 1
+
+" nerdcommenter 키 바인딩 ( // -> 주석토글 )
+let g:NERDCreateDefaultMappings = 0
+let g:NERDToggleCheckAllLines = 1
+nnoremap // <Plug>NERDCommenterToggle
+vnoremap // <Plug>NERDCommenterToggle
 
 " line number 설정
 set nu
