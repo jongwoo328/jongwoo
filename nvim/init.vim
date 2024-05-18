@@ -46,6 +46,9 @@ Plug 'tpope/vim-fugitive'
 " 주석 기능
 Plug 'preservim/nerdcommenter'
 
+" 괄호사용관련
+Plug 'tpope/vim-surround'
+
 call plug#end()
 
 " nerdtree 설정
