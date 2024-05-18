@@ -49,6 +49,8 @@ Plug 'preservim/nerdcommenter'
 " 괄호사용관련
 Plug 'tpope/vim-surround'
 
+" treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 " nerdtree 설정
@@ -115,3 +117,31 @@ require'lspconfig'.tsserver.setup{
 require'lspconfig'.pyright.setup{
 	capabilites=capabilites,
 }
+
+-- treesitter 설정
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = {
+		"bash",
+		"css",
+		"dockerfile",
+		"csv",
+		"html",
+		"java",
+		"javascript",
+		"json",
+		"kotlin",
+		"markdown",
+		"python",
+		"scss",
+		"typescript",
+		"vim",
+		"vue",
+		"yaml"
+	},
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	},
+}
+EOF
+
