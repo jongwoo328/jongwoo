@@ -93,7 +93,12 @@ colorscheme onedark
 lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
-require'lspconfig'.jsonls.setup{}
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require'lspconfig'.jsonls.setup{
+	capabilities=capabilities,
+}
 require'cmp'.setup {
 	sources = {
 		{ name = 'nvim_lsp' },
@@ -109,7 +114,6 @@ require'cmp'.setup {
 	}
 }
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require'lspconfig'.tsserver.setup{
 	capabilites=capabilites,
