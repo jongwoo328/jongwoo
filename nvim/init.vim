@@ -7,6 +7,10 @@ autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
 " TypeScript 파일에 대한 설정
 autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 
+" 기본 탭사이즈 설정
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 call plug#begin()
 
@@ -51,22 +55,23 @@ Plug 'tpope/vim-surround'
 
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 call plug#end()
 
 " nerdtree 설정
 map <C-t> :NERDTreeToggle<CR>
 
 " vim airline 설정
-let g:airline_powerline_fonts = 1		" powerline 폰트 사용
-let g:airline#extensions#tabline#enabled = 1	" 탭 라인 활성화
+let g:airline_powerline_fonts = 1        " powerline 폰트 사용
+let g:airline#extensions#tabline#enabled = 1    " 탭 라인 활성화
 let g:airline#extensions#tabline#enabled = 1              " vim-airline 버퍼 목록 켜기
 let g:airline#extensions#tabline#fnamemod = ':t'          " vim-airline 버퍼 목록 파일명만 출력
 let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
 let g:airline#extensions#tabline#buffer_nr_format = '%s:' " buffer number format
 
 " nerdcommenter 설정
-let g:NERDCreateDefaultMappings = 0		" 기본 매핑 비활성화
-let g:NERDToggleCheckAllLines = 1		" 주석 토글시 모든 라인 주석처리
+let g:NERDCreateDefaultMappings = 0        " 기본 매핑 비활성화
+let g:NERDToggleCheckAllLines = 1        " 주석 토글시 모든 라인 주석처리
 nnoremap // <Plug>NERDCommenterToggle
 vnoremap // <Plug>NERDCommenterToggle
 
@@ -97,55 +102,55 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require'lspconfig'.jsonls.setup{
-	capabilities=capabilities,
+    capabilities=capabilities,
 }
 require'cmp'.setup {
-	sources = {
-		{ name = 'nvim_lsp' },
-	},
-	window = {
-		completion = {
-			border = "rounded",
-			winhighlight = "Normal:CmpNormal",
-		},
-		documentation = {
-			winhighlight = "Normal:CmpDocNormal",
-		}
-	}
+    sources = {
+        { name = 'nvim_lsp' },
+    },
+    window = {
+        completion = {
+            border = "rounded",
+            winhighlight = "Normal:CmpNormal",
+        },
+        documentation = {
+            winhighlight = "Normal:CmpDocNormal",
+        }
+    }
 }
 
 
 require'lspconfig'.tsserver.setup{
-	capabilites=capabilites,
+    capabilites=capabilites,
 }
 require'lspconfig'.pyright.setup{
-	capabilites=capabilites,
+    capabilites=capabilites,
 }
 
 -- treesitter 설정
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = {
-		"bash",
-		"css",
-		"dockerfile",
-		"csv",
-		"html",
-		"java",
-		"javascript",
-		"json",
-		"kotlin",
-		"markdown",
-		"python",
-		"scss",
-		"typescript",
-		"vim",
-		"vue",
-		"yaml"
-	},
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
+    ensure_installed = {
+        "bash",
+        "css",
+        "dockerfile",
+        "csv",
+        "html",
+        "java",
+        "javascript",
+        "json",
+        "kotlin",
+        "markdown",
+        "python",
+        "scss",
+        "typescript",
+        "vim",
+        "vue",
+        "yaml"
+    },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
 }
 EOF
 
