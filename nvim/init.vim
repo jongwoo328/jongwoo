@@ -27,6 +27,9 @@ Plug 'preservim/nerdtree'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 
+" add pictograms to lsp
+Plug 'onsails/lspkind.nvim'
+
 " discord presence
 Plug 'andweeb/presence.nvim'
 
@@ -104,20 +107,39 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require'lspconfig'.jsonls.setup{
     capabilities=capabilities,
 }
-require'cmp'.setup {
+
+require'lspconfig'.marksman.setup{
+    capabilities=capabilities,
+}
+
+vim.o.completeopt = 'menu,menuone,noselect'
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'buffer' },
+    },
+    formatting = {
+        format = lspkind.cmp_format(),
+    },
+    snippet = {
+        expand = function(args)
+            vim.snippet.expand(args.body)
+        end,
     },
     window = {
-        completion = {
-            border = "rounded",
-            winhighlight = "Normal:CmpNormal",
-        },
-        documentation = {
-            winhighlight = "Normal:CmpDocNormal",
-        }
-    }
-}
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item() , {'i','c'}),
+        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+        ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+        ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false })),
+    })
+})
 
 
 require'lspconfig'.tsserver.setup{
