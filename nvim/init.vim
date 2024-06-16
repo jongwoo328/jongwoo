@@ -167,7 +167,8 @@ require'nvim-treesitter.configs'.setup {
         "typescript",
         "vim",
         "vue",
-        "yaml"
+        "yaml",
+        "go"
     },
     highlight = {
         enable = true,
