@@ -1,2 +1,11 @@
+# 날짜표시 locale
+export LC_TIME=ko_KR.UTF-8
+
+# Default EDITOR
 export EDITOR="nvim"
+
+# ls -> lsd alias
+if command -v lsd >/dev/null 2>&1; then
+    alias ls='lsd --date "+%Y-%m-%d %X"'
+fi
 
