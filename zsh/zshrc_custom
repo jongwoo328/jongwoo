@@ -1,2 +1,2 @@
-export EDITOR="nvim --clean -c 'set textwidth&'"
+export EDITOR="nvim"
 
