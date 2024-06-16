@@ -26,6 +26,8 @@ Plug 'preservim/nerdtree'
 " 자동완성
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
 
 " add pictograms to lsp
 Plug 'onsails/lspkind.nvim'
@@ -119,6 +121,7 @@ cmp.setup({
     sources = {
         { name = 'nvim_lsp' },
         { name = 'buffer' },
+        { name = 'path' },
     },
     formatting = {
         format = lspkind.cmp_format(),
@@ -139,6 +142,21 @@ cmp.setup({
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
         ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false })),
     })
+})
+cmp.setup.cmdline({'/', '?'}, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' },
+    },
+})
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' },
+    }, {
+        { name = 'cmdline' },
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false }
 })
 
 
