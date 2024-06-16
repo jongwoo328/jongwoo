@@ -7,5 +7,9 @@ export EDITOR="nvim"
 # ls -> lsd alias
 if command -v lsd >/dev/null 2>&1; then
     alias ls='lsd --date "+%Y-%m-%d %X"'
+    alias l='ls -l'
+    alias la='ls -a'
+    alias lla='ls -la'
+    alias lt='ls --tree'
 fi
 
