@@ -61,6 +61,9 @@ Plug 'tpope/vim-surround'
 " treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" indent line
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 call plug#end()
 
 " nerdtree 설정
@@ -193,5 +196,8 @@ require'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false,
     },
 }
+
+-- blankline
+require("ibl").setup()
 EOF
 
