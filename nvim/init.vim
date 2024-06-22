@@ -64,6 +64,8 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " indent line
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+" rust analyzer
+"Plug '
 call plug#end()
 
 " nerdtree 설정
@@ -189,7 +191,8 @@ require'nvim-treesitter.configs'.setup {
         "vim",
         "vue",
         "yaml",
-        "go"
+        "go",
+        "rust",
     },
     highlight = {
         enable = true,
@@ -199,5 +202,31 @@ require'nvim-treesitter.configs'.setup {
 
 -- blankline
 require("ibl").setup()
+
+-- rust analyzer
+require'lspconfig'.rust_analyzer.setup({
+    on_attach = function(client, bufnr)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end,
+    capabilities = capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            imports = {
+                granularity = {
+                    group = "module",
+                },
+                prefix = "self",
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true,
+                },
+            },
+            procMacro = {
+                enable = true,
+            },
+        }
+    }
+})
 EOF
 
