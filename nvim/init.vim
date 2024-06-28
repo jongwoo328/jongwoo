@@ -168,6 +168,9 @@ require'lspconfig'.tsserver.setup{
 require'lspconfig'.pyright.setup{
     capabilites=capabilites,
 }
+require'lspconfig'.gopls.setup{
+    capabilites=capabilites,
+}
 
 -- treesitter 설정
 require'nvim-treesitter.configs'.setup {
