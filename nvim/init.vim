@@ -61,8 +61,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " indent line
 Plug 'lukas-reineke/indent-blankline.nvim'
 
-" rust analyzer
-"Plug '
+" highlighit log file
+Plug 'mtdl9/vim-log-highlighting'
+
 call plug#end()
 
 " nerdtree 설정
