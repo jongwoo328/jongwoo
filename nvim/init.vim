@@ -1,3 +1,8 @@
+" default
+set tabstop=4
+set shiftwidth=4
+"set expandtab
+
 " Python 파일에 대한 설정
 autocmd FileType python setlocal tabstop=4 shiftwidth=4 expandtab
 
@@ -7,10 +12,6 @@ autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 expandtab
 " TypeScript 파일에 대한 설정
 autocmd FileType typescript setlocal tabstop=2 shiftwidth=2 expandtab
 
-" 기본 탭사이즈 설정
-set tabstop=4
-set shiftwidth=4
-set expandtab
 
 call plug#begin()
 
