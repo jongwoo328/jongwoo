@@ -164,7 +164,7 @@ cmp.setup.cmdline(':', {
 })
 
 
-require'lspconfig'.tsserver.setup{
+require'lspconfig'.ts_ls.setup{
     capabilites=capabilites,
 }
 require'lspconfig'.pyright.setup{
