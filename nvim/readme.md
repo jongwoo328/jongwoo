@@ -20,4 +20,12 @@ https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.m
 
 ### python
 [pyright](https://github.com/microsoft/pyright)
-
+- 홈 디렉토리에서 일회용 파일 작성하는 경우 전체를 검색하는 문제가 있음
+    - 홈에 아래처럼 `pyrightconfig.json` 작성해서 방지할 수 있음
+    ```json
+    {
+        "exclude": [
+                "./**/*"
+        ]
+    }
+    ```
