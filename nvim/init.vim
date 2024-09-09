@@ -192,7 +192,7 @@ end
 require'lspconfig'.ts_ls.setup{
     capabilites=capabilites,
 	init_options={
-		plubins={
+		plugins={
 			{
 				name="@vue/typescript-plugin",
 				location=vue_ts_plugin_loc,
