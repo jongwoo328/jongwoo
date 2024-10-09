@@ -220,6 +220,17 @@ require'lspconfig'.volar.setup{
 		},
 	}
 }
+require'lspconfig'.yamlls.setup {
+	settings = {
+		yaml= {
+			schemas = {
+				kubernetes = {
+					"~/study/k8s/**/*.yaml",
+				}
+			},
+		},
+	},
+}
 
 -- treesitter 설정
 require'nvim-treesitter.configs'.setup {
