@@ -65,6 +65,8 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 " highlighit log file
 Plug 'mtdl9/vim-log-highlighting'
 
+" markdown viewer
+Plug 'OXY2DEV/markview.nvim'
 call plug#end()
 
 " nerdtree 설정
