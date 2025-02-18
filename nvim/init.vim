@@ -20,6 +20,8 @@ Plug 'neovim/nvim-lspconfig'
 
 " one dark theme
 Plug 'navarasu/onedark.nvim'
+" tokyonight theme
+Plug 'folke/tokyonight.nvim'
 
 " nerdtree
 Plug 'preservim/nerdtree'
@@ -66,7 +68,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'mtdl9/vim-log-highlighting'
 
 " markdown viewer
-Plug 'OXY2DEV/markview.nvim'
+Plug 'toppair/peek.nvim'
 call plug#end()
 
 " nerdtree 설정
@@ -102,9 +104,10 @@ set list
 set colorcolumn=80
 
 " set theme
-lua require('onedark').setup { style = 'warmer' }
-lua require('onedark').load()
-colorscheme onedark
+"lua require('onedark').setup { style = 'darker' }
+"lua require('onedark').load()
+"colorscheme onedark
+colorscheme tokyonight-night
 
 lua require'lspconfig'.marksman.setup{}
 
@@ -290,5 +293,8 @@ require'lspconfig'.rust_analyzer.setup({
         }
     }
 })
+
+vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
+vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
 EOF
 
