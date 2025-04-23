@@ -198,7 +198,7 @@ elseif is_linux then
 end
 
 require'lspconfig'.ts_ls.setup{
-    capabilites=capabilites,
+    capabilities=capabilities,
 	init_options={
 		plugins={
 			{
