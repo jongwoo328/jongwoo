@@ -116,6 +116,14 @@ lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
 
+vim.diagnostic.config({
+  virtual_text = true,      -- 라인 옆에 에러 메시지 출력
+  signs = true,             -- gutter(좌측)에 아이콘 표시
+  underline = true,         -- 에러난 부분 밑줄
+  update_in_insert = false, -- 입력 중에도 실시간으로 업데이트할지
+  severity_sort = true,     -- 심각도별 정렬
+})
+
 -- 운영체제 감지
 local is_mac = vim.fn.has("maxunix") == 1
 local is_linux = vim.fn.has("unix") == 1 and not is_mac
