@@ -120,6 +120,12 @@ lua require'lspconfig'.marksman.setup{}
 lua << EOF
 
 require('smear_cursor').enabled = true
+require('smear_cursor').setup{
+	cursor_color='#38E57B',
+	stiffness = 0.8,
+	trailing_stiffness = 0.5,
+	distance_stop_animating = 0.5,
+}
 
 vim.diagnostic.config({
   virtual_text = true,      -- 라인 옆에 에러 메시지 출력
