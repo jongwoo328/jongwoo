@@ -72,6 +72,9 @@ Plug 'toppair/peek.nvim'
 
 " code format
 Plug 'stevearc/conform.nvim'
+
+" cursor animation
+Plug 'sphamba/smear-cursor.nvim'
 call plug#end()
 
 " nerdtree 설정
@@ -115,6 +118,8 @@ colorscheme tokyonight-night
 lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
+
+require('smear_cursor').enabled = true
 
 vim.diagnostic.config({
   virtual_text = true,      -- 라인 옆에 에러 메시지 출력
