@@ -126,6 +126,8 @@ require('smear_cursor').setup{
 	trailing_stiffness = 0.5,
 	never_draw_over_target = false,
 	distance_stop_animating = 0.5,
+	hide_target_hack = true,
+    never_draw_over_target = true,
 }
 
 vim.diagnostic.config({
