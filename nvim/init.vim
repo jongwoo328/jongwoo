@@ -119,6 +119,16 @@ lua require'lspconfig'.marksman.setup{}
 
 lua << EOF
 
+local on_attach = function(client, bufnr)
+  local opts = { noremap=true, silent=true, buffer=bufnr }
+
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+end
+
 require('smear_cursor').enabled = true
 require('smear_cursor').setup{
 	cursor_color='#38E57B',
@@ -157,10 +167,12 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require'lspconfig'.jsonls.setup{
+	on_attach=on_attach,
     capabilities=capabilities,
 }
 
 require'lspconfig'.marksman.setup{
+	on_attach=on_attach,
     capabilities=capabilities,
 }
 
@@ -220,6 +232,7 @@ elseif is_linux then
 end
 
 require'lspconfig'.ts_ls.setup{
+	on_attach=on_attach,
     capabilities=capabilities,
 	init_options={
 		plugins={
@@ -237,12 +250,16 @@ require'lspconfig'.ts_ls.setup{
 	}
 }
 require'lspconfig'.pyright.setup{
+	on_attach=on_attach,
     capabilites=capabilites,
 }
 require'lspconfig'.gopls.setup{
+	on_attach=on_attach,
     capabilites=capabilites,
 }
 require'lspconfig'.volar.setup{
+	on_attach=on_attach,
+	capabilities=capabilities,
 	capabilites=capabilites,
 	init_options={
 		vue={
@@ -251,6 +268,7 @@ require'lspconfig'.volar.setup{
 	}
 }
 require'lspconfig'.yamlls.setup {
+	on_attach=on_attach,
 	settings = {
 		yaml= {
 			schemas = {
