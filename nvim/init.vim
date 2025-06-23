@@ -102,6 +102,7 @@ noremap <C-l> 4l
 
 " line number 설정
 set nu
+set relativenumber
 
 " 공백 변환
 set list
