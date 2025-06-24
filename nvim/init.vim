@@ -116,9 +116,19 @@ set colorcolumn=80
 "colorscheme onedark
 colorscheme tokyonight-night
 
-lua require'lspconfig'.marksman.setup{}
-
 lua << EOF
+
+vim.lsp.enable({
+	'lua_ls',
+	'gopls',
+	'jsonls',
+	'marksman',
+	'pyright',
+	'rust_analyzer',
+	'vtsls',
+	'vue_ls',
+	'yamlls',
+})
 
 local on_attach = function(client, bufnr)
   local opts = { noremap=true, silent=true, buffer=bufnr }
@@ -149,33 +159,9 @@ vim.diagnostic.config({
   severity_sort = true,     -- 심각도별 정렬
 })
 
--- 운영체제 감지
-local is_mac = vim.fn.has("maxunix") == 1
-local is_linux = vim.fn.has("unix") == 1 and not is_mac
-local is_intel_mac = false
-local is_apple_silicon = false
-if is_mac then
-	local arch = vim.fn.system("uname -m")
-
-	if arch:match("x86_64") then
-		is_intel_mac = true
-	elseif arch:match("arm64") then
-		is_apple_silicon = true
-	end
-end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-require'lspconfig'.jsonls.setup{
-	on_attach=on_attach,
-    capabilities=capabilities,
-}
-
-require'lspconfig'.marksman.setup{
-	on_attach=on_attach,
-    capabilities=capabilities,
-}
 
 vim.o.completeopt = 'menu,menuone,noselect'
 local cmp = require('cmp')
@@ -222,65 +208,6 @@ cmp.setup.cmdline(':', {
     matching = { disallow_symbol_nonprefix_matching = false }
 })
 
--- os 별 plugin location
-local vue_ts_plugin_loc = ""
-if is_intel_mac then
-	vue_ts_plugin_loc = "/usr/local/lib/node_modules/@vue/typescript-plugin"
-elseif is_apple_silicon then
-	vue_ts_plugin_loc = "/opt/homebrew/lib/node_modules/@vue/typescript-plugin"
-elseif is_linux then
-	vue_ts_plugin_loc = "/usr/lib/node_modules/@vue/typescript-plugin"
-end
-
-require'lspconfig'.ts_ls.setup{
-	on_attach=on_attach,
-    capabilities=capabilities,
-	init_options={
-		plugins={
-			{
-				name="@vue/typescript-plugin",
-				location=vue_ts_plugin_loc,
-				languages={"javascript","typescript","vue"},
-			},
-		},
-	},
-	filetypes={
-		"javascript",
-		"typescript",
-		"vue",
-	}
-}
-require'lspconfig'.pyright.setup{
-	on_attach=on_attach,
-    capabilites=capabilites,
-}
-require'lspconfig'.gopls.setup{
-	on_attach=on_attach,
-    capabilites=capabilites,
-}
-require'lspconfig'.volar.setup{
-	on_attach=on_attach,
-	capabilities=capabilities,
-	capabilites=capabilites,
-	init_options={
-		vue={
-			hybridMode=false
-		},
-	}
-}
-require'lspconfig'.yamlls.setup {
-	on_attach=on_attach,
-	settings = {
-		yaml= {
-			schemas = {
-				kubernetes = {
-					"~/study/k8s/**/*.yaml",
-				}
-			},
-		},
-	},
-}
-
 -- treesitter 설정
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {
@@ -312,32 +239,7 @@ require'nvim-treesitter.configs'.setup {
 -- blankline
 require("ibl").setup()
 
--- rust analyzer
-require'lspconfig'.rust_analyzer.setup({
-    on_attach = function(client, bufnr)
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end,
-    capabilities = capabilities,
-    settings = {
-        ["rust-analyzer"] = {
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true,
-            },
-        }
-    }
-})
-
+-- markdown preview
 vim.api.nvim_create_user_command('PeekOpen', require('peek').open, {})
 vim.api.nvim_create_user_command('PeekClose', require('peek').close, {})
 
@@ -371,3 +273,4 @@ vim.api.nvim_create_user_command("Format", function(args)
 end, { range = true })
 
 EOF
+
