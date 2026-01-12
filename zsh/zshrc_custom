@@ -12,6 +12,36 @@ if command -v lsd >/dev/null 2>&1; then
     alias l='ls -l'
     alias la='ls -a'
     alias lla='ls -la'
+    alias ll='ls -lh'
     alias lt='ls --tree'
 fi
+
+### zsh plugins
+
+BREW_PREFIX="$(brew --prefix)"
+
+# fzf
+[[ -f "$BREW_PREFIX/opt/fzf/shell/completion.zsh" ]] && source "$BREW_PREFIX/opt/fzf/shell/completion.zsh"
+[[ -f "$BREW_PREFIX/opt/fzf/shell/key-bindings.zsh" ]] && source "$BREW_PREFIX/opt/fzf/shell/key-bindings.zsh"
+
+# autosuggestions
+[[ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# ↑ 키: 빈 입력이면 history, autosuggest 있으면 accept
+function _up_or_autosuggest_accept() {
+  # autosuggestion이 있고(cursor 위치 오른쪽에 추천이 붙어있는 상태)
+  if [[ -n "$POSTDISPLAY" ]]; then
+    zle autosuggest-accept
+  else
+    zle up-line-or-history
+  fi
+}
+
+zle -N _up_or_autosuggest_accept
+bindkey '^[[A' _up_or_autosuggest_accept
+
+# syntax highlighting (마지막)
+[[ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+  source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
