@@ -13,7 +13,8 @@ $sudo\
 $username\
 $character\
 $directory\
-$git_branch"""
+$git_branch\
+$git_status"""
 right_format = """
 $singularity\
 $kubernetes\
@@ -21,7 +22,6 @@ $vcsh\
 $fossil_branch\
 $git_commit\
 $git_state\
-$git_status\
 $hg_branch\
 $pijul_channel\
 $docker_context\
@@ -174,7 +174,7 @@ format = "[$symbol $branch(:$remote_branch)]($style) "
 symbol = ""
 style = "italic bright-blue"
 truncation_symbol = "⋯"
-truncation_length = 16
+truncation_length = 17
 ignore_branches = []
 only_attached = true
 
