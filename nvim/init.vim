@@ -86,12 +86,6 @@ let g:NERDToggleCheckAllLines = 1        " 주석 토글시 모든 라인 주석
 nnoremap // <Plug>NERDCommenterToggle
 vnoremap // <Plug>NERDCommenterToggle
 
-" custom keymap
-noremap <C-j> 4j
-noremap <C-k> 4k
-noremap <C-h> 4h
-noremap <C-l> 4l
-
 " line number 설정
 set nu
 set relativenumber
@@ -421,6 +415,13 @@ vim.api.nvim_create_user_command("Format", function(args)
 		range = range,
 	})
 end, { range = true })
+
+-- custom keymap
+vim.keymap.set({ "n", "v", "o" }, "<C-j>", "4j", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "o" }, "<C-k>", "4k", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "o" }, "<C-h>", "4h", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v", "o" }, "<C-l>", "4l", { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>c", '"+y', { noremap = true, silent = true })  -- 선택영역 복사
 
 EOF
 
