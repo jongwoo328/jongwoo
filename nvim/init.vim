@@ -11,6 +11,10 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'navarasu/onedark.nvim'
 " tokyonight theme
 Plug 'folke/tokyonight.nvim'
+" kanagawa theme
+Plug 'rebelot/kanagawa.nvim'
+" catppuccin
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 " neo-tree
 Plug 'nvim-lua/plenary.nvim'
@@ -97,10 +101,14 @@ set list
 set colorcolumn=80
 
 " set theme
-"lua require('onedark').setup { style = 'darker' }
-"lua require('onedark').load()
+lua require('onedark').setup { style = 'darker' }
+lua require('onedark').load()
 "colorscheme onedark
-colorscheme tokyonight-night
+"colorscheme tokyonight
+"colorscheme tokyonight-storm
+"colorscheme tokyonight-night
+"colorscheme kanagawa
+"colorscheme catppuccin-mocha
 
 lua << EOF
 -- neo tree 설정
