@@ -31,6 +31,9 @@ Plug 'hrsh7th/cmp-cmdline'
 " diff highlight
 Plug 'lewis6991/gitsigns.nvim'
 
+" java lsp
+Plug 'mfussenegger/nvim-jdtls'
+
 " add pictograms to lsp
 Plug 'onsails/lspkind.nvim'
 
@@ -152,6 +155,7 @@ vim.lsp.enable({
 	'rust_analyzer', -- rust language server
 	'yamlls', -- yaml language server
 	'tombi', -- toml language server
+	'jdtls', -- java language server
 })
 vim.lsp.config('vtsls', {
 	settings = {
