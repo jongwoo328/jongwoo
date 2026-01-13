@@ -421,7 +421,7 @@ vim.keymap.set({ "n", "v", "o" }, "<C-j>", "4j", { noremap = true, silent = true
 vim.keymap.set({ "n", "v", "o" }, "<C-k>", "4k", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v", "o" }, "<C-h>", "4h", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v", "o" }, "<C-l>", "4l", { noremap = true, silent = true })
-vim.keymap.set("v", "<leader>c", '"+y', { noremap = true, silent = true })  -- 선택영역 복사
+vim.keymap.set("v", "<C-c>", '"+y', { noremap = true, silent = true })  -- 선택영역 복사
 
 EOF
 
