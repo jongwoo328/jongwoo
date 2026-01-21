@@ -16,7 +16,28 @@ if command -v lsd >/dev/null 2>&1; then
     alias lt='ls --tree'
 fi
 
-### zsh plugins
+## zsh plugins
+
+### Zsh 기본 자동완성 시스템 활성화
+autoload -Uz compinit
+compinit
+
+# 실행 속도를 위해 캐시 사용 (옵션)
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+### 탭(Tab) 메뉴 설정
+# 탭 두 번 누르면 방향키로 선택 가능하게 함
+zstyle ':completion:*' menu select
+
+# 자동완성 메뉴에 색상 입히기 (ls와 동일한 색상)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# 대소문자 구분 없이 자동완성 (a 입력해도 Apple 완성)
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# 경로 자동완성 시 / 뒤에 무엇이 있는지 더 정확히 제시
+zstyle ':completion:*' special-dirs true
 
 BREW_PREFIX="$(brew --prefix)"
 
@@ -28,18 +49,23 @@ BREW_PREFIX="$(brew --prefix)"
 [[ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
   source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-# ↑ 키: 빈 입력이면 history, autosuggest 있으면 accept
+# 위 방향키 커스텀 함수
 function _up_or_autosuggest_accept() {
-  # autosuggestion이 있고(cursor 위치 오른쪽에 추천이 붙어있는 상태)
   if [[ -n "$POSTDISPLAY" ]]; then
     zle autosuggest-accept
   else
     zle up-line-or-history
   fi
 }
-
 zle -N _up_or_autosuggest_accept
 bindkey '^[[A' _up_or_autosuggest_accept
+
+# 히스토리 파일 설정
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY      # 여러 터미널 간 히스토리 공유
+setopt HIST_IGNORE_DUPS   # 중복 명령 저장 안 함
 
 # syntax highlighting (마지막)
 [[ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
