@@ -60,6 +60,9 @@ function _up_or_autosuggest_accept() {
 zle -N _up_or_autosuggest_accept
 bindkey '^[[A' _up_or_autosuggest_accept
 
+# Ctrl+W가 경로 전체를 지우지 않도록 / 를 단어 문자에서 제외
+WORDCHARS=${WORDCHARS//\/}
+
 # 히스토리 파일 설정
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
