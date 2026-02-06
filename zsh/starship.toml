@@ -218,7 +218,7 @@ symbol = " "
 style = "bold bright-green"
 
 [python]
-format = " [${symbol}${version}]($style)"
+format = ' [${symbol}${version}]($style) [(\($virtualenv\))](yellow)'
 symbol = " "
 version_format = "${raw}"
 style = "bold bright-blue"
