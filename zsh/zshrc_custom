@@ -1,7 +1,5 @@
 # 날짜표시 locale
-if [ -n "$LC_TIME" ]; then
-    export LC_TIME=ko_KR.UTF-8
-fi
+export LC_TIME=ko_KR.UTF-8
 
 # Default EDITOR
 export EDITOR="nvim -c 'set textwidth&'"
@@ -31,7 +29,7 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' menu select
 
 # 자동완성 메뉴에 색상 입히기 (ls와 동일한 색상)
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # 대소문자 구분 없이 자동완성 (a 입력해도 Apple 완성)
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
