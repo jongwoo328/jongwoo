@@ -156,6 +156,12 @@ vim.lsp.enable({
 	'yamlls', -- yaml language server
 	'tombi', -- toml language server
 	'jdtls', -- java language server
+	-- vscode-langservers-extracted from
+	'html',
+	'css',
+	'eslint',
+	-- to
+	'emmet_language_server', -- html/css abbreviation
 })
 vim.lsp.config('vtsls', {
 	settings = {
