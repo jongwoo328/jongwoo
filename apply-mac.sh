@@ -62,3 +62,5 @@ add_line 'eval "$(starship init zsh)"'                      "$HOME/.zshrc"
 
 echo
 echo "Done. Run 'exec zsh' to apply."
+echo "Note: starship.toml uses Nerd Font glyphs. If the prompt looks broken,"
+echo "      install one, e.g.: brew install --cask font-jetbrains-mono-nerd-font"
