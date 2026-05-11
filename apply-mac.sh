@@ -48,7 +48,7 @@ add_line() {
         echo "[skip]   $file already contains: $line"
         return
     fi
-    printf '\n%s\n' "$line" >> "$file"
+    printf '%s\n' "$line" >> "$file"
     echo "[append] $file: $line"
 }
 
