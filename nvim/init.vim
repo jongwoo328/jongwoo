@@ -158,7 +158,7 @@ vim.lsp.enable({
 	'jdtls', -- java language server
 	-- vscode-langservers-extracted from
 	'html',
-	'css',
+	'cssls',
 	'eslint',
 	-- to
 	'emmet_language_server', -- html/css abbreviation
