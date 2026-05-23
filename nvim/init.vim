@@ -145,7 +145,6 @@ vim.keymap.set('n', '<C-t>', '<Cmd>Neotree toggle<CR>')
 vim.keymap.set('n', '<leader>t', '<Cmd>Neotree focus<CR>')
 vim.keymap.set('n', '<leader>e', '<C-w>p') -- 현재 창에서 이전 창으로 이동
 
-
 vim.lsp.enable({
 	'lua_ls', -- lua language server
 	'gopls', -- go language server
@@ -162,6 +161,7 @@ vim.lsp.enable({
 	'eslint',
 	-- to
 	'emmet_language_server', -- html/css abbreviation
+	'tailwindcss',
 })
 vim.lsp.config('vtsls', {
 	settings = {
