@@ -50,6 +50,10 @@ add_line() {
         echo "[skip]   $file already contains: $line"
         return
     fi
+    # 파일이 개행 없이 끝나면 새 줄이 마지막 줄에 붙어버리므로 개행을 먼저 추가
+    if [ -f "$file" ] && [ -n "$(tail -c1 "$file" 2>/dev/null || true)" ]; then
+        echo "" >> "$file"
+    fi
     printf '%s\n' "$line" >> "$file"
     echo "[append] $file: $line"
 }
