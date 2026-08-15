@@ -92,13 +92,13 @@ symbol = " "
 
 [character]
 format = "$symbol "
-success_symbol = "[❯](bold bright-green)"
-error_symbol = "[⏺](italic bold bright-red)"
-vimcmd_symbol = "[■](italic dimmed green)"
+success_symbol = "[●](bold bright-green)"
+error_symbol = "[●](italic bold bright-red)"
+vimcmd_symbol = "[●](italic dimmed green)"
 # not supported in zsh
-vimcmd_replace_one_symbol = "◌"
-vimcmd_replace_symbol = "□"
-vimcmd_visual_symbol = "▼"
+vimcmd_replace_one_symbol = "●"
+vimcmd_replace_symbol = "●"
+vimcmd_visual_symbol = "●"
 
 [env_var.VIMSHELL]
 format = "[$env_value]($style)"
@@ -124,9 +124,9 @@ truncation_symbol = "…/"
 read_only = " "
 use_os_path_sep = true
 style = "cyan"
-format = "[  $path]($style)[$read_only]($read_only_style) "
+format = "[](fg:#24303a)[  $path](fg:#67d4dc bg:#24303a)[$read_only](fg:#f7768e bg:#24303a)[](fg:#24303a) "
 repo_root_style = "yellow"
-repo_root_format = "[  $before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+repo_root_format = "[](fg:#24303a)[  $before_root_path](fg:#67d4dc bg:#24303a)[$repo_root](fg:#e0af68 bg:#24303a)[$path](fg:#67d4dc bg:#24303a)[$read_only](fg:#f7768e bg:#24303a)[](fg:#24303a) "
 fish_style_pwd_dir_length = 1
 
 [cmd_duration]
