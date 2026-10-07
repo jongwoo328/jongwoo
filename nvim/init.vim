@@ -42,6 +42,9 @@ Plug 'andweeb/presence.nvim'
 
 " github copilot
 Plug 'github/copilot.vim'
+" Mellum 로컬 자동완성 (Copilot 중복 제안 방지)
+let g:copilot_enabled = 0
+Plug 'milanglacier/minuet-ai.nvim'
 
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -114,6 +117,106 @@ lua require('onedark').load()
 "colorscheme catppuccin-mocha
 
 lua << EOF
+-- Mellum: Ollama 로컬 FIM 자동완성
+-- 설치 전에도 설정 파일을 읽을 수 있도록 보호
+local minuet_ok, minuet = pcall(require, 'minuet')
+if minuet_ok then
+    -- 비동기로 서버/모델을 확인하고 5초간 결과를 재사용한다.
+    -- Ollama 실행 파일이 없어도 로컬 서버에 연결할 수 있다.
+    local ollama = { ready = false, checking = false, checked_at = nil }
+    local function ollama_ready()
+        local now = vim.uv.now()
+        if ollama.checking then return false end
+        if ollama.checked_at and now - ollama.checked_at < 5000 then
+            return ollama.ready
+        end
+        ollama.ready = false
+        ollama.checking = true
+        local function finish(ready)
+            ollama.ready = ready
+            ollama.checking = false
+            ollama.checked_at = vim.uv.now()
+        end
+        if vim.fn.executable('curl') ~= 1 then
+            finish(false)
+            return false
+        end
+        local started = pcall(vim.system, {
+            'curl', '--silent', '--fail', '--noproxy', '*',
+            '--connect-timeout', '1', '--max-time', '2',
+            'http://localhost:11434/api/tags',
+        }, { text = true }, vim.schedule_wrap(function(result)
+            local ready = false
+            if result.code == 0 then
+                local ok, data = pcall(vim.json.decode, result.stdout or '')
+                if ok and type(data) == 'table' and type(data.models) == 'table' then
+                    for _, model in ipairs(data.models) do
+                        if type(model) == 'table' then
+                            local name = model.name or model.model
+                            if name == 'JetBrains/Mellum-4b-sft-all'
+                                or name == 'JetBrains/Mellum-4b-sft-all:latest' then
+                                ready = true
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+            finish(ready)
+        end))
+        if not started then finish(false) end
+        return false
+    end
+    ollama_ready()
+    vim.api.nvim_create_autocmd('InsertEnter', {
+        group = vim.api.nvim_create_augroup('MellumOllamaAvailability', { clear = true }),
+        callback = function() ollama_ready() end,
+    })
+    minuet.setup({
+        provider = 'openai_fim_compatible',
+        enable_predicates = { ollama_ready },
+        notify = false, -- 확인 직후 서버가 꺼져도 오류 알림을 표시하지 않음
+        n_completions = 1,
+        context_window = 8000, -- 문자 수 (토큰 수가 아님)
+        debounce = 300,
+        throttle = 1000,
+        request_timeout = 10,
+        virtualtext = {
+            auto_trigger_ft = {
+                'java', 'kotlin', 'lua', 'python', 'go', 'rust',
+                'javascript', 'typescript', 'javascriptreact',
+                'typescriptreact', 'vue', 'html', 'css', 'scss',
+                'c', 'cpp', 'cs', 'php', 'ruby',
+            },
+            show_on_completion_menu = true,
+            keymap = {
+                accept = '<C-g>a',
+                accept_line = '<C-g>l',
+                dismiss = '<C-g>e',
+            },
+        },
+        provider_options = {
+            openai_fim_compatible = {
+                name = 'Ollama',
+                end_point = 'http://localhost:11434/v1/completions',
+                api_key = function() return 'ollama' end,
+                model = 'JetBrains/Mellum-4b-sft-all',
+                optional = {
+                    max_tokens = 128,
+                    temperature = 0.2,
+                    top_p = 0.9,
+                },
+            },
+        },
+    })
+    -- 수동 요청은 Minuet의 enable_predicates를 우회하므로 별도로 확인한다.
+    vim.keymap.set('i', '<C-g>n', function()
+        if ollama_ready() then
+            require('minuet.virtualtext').action.next()
+        end
+    end, { desc = 'Mellum: 서버 연결 시 제안 요청' })
+end
+
 -- neo tree 설정
 require('neo-tree').setup({
 	window = {
@@ -250,8 +353,15 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
         ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item() , {'i','c'}),
-        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
-        ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
+        -- Tab: Mellum 제안 수락, 제안이 없으면 기본 Tab 동작
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            local ok, virtualtext = pcall(require, 'minuet.virtualtext')
+            if ok and virtualtext.action.is_visible() then
+                virtualtext.action.accept()
+            else
+                fallback()
+            end
+        end, { 'i' }),
         ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = false })),
     })
 })
