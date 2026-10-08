@@ -31,6 +31,7 @@ $cmake\
 $cobol\
 $daml\
 $dart\
+$bun\
 $deno\
 $dotnet\
 $elixir\
@@ -198,6 +199,10 @@ ahead = "[⇡${count}](bold green) "
 behind = "[⇣${count}](bold red) "
 diverged = "[⇕⇡${ahead_count}⇣${behind_count}](bold bright-purple) "
 
+[bun]
+format = " [bun](italic) [${symbol}${version}]($style)"
+version_format = "${raw}"
+
 [deno]
 format = " [deno](italic) [∫ $version](green bold)"
 version_format = "${raw}"
@@ -211,7 +216,7 @@ style = "bold bright-yellow"
 [nodejs]
 format = " [${symbol}${version}]($style)"
 version_format = "${raw}"
-detect_files = ["package-lock.json", "yarn.lock"]
+detect_files = ["package-lock.json", "yarn.lock", "!bun.lock", "!bun.lockb", "!bunfig.toml"]
 detect_folders = ["node_modules"]
 detect_extensions = []
 symbol = " "
